@@ -6,18 +6,23 @@ using System.Linq;
 public class MapController : MonoBehaviour {
 
 	List<GameObject> propsInLevel = new List<GameObject>();
+	bool transformed;
 
 	void Awake()
 	{
 		GetPropsInLevel ();
+		transformed = false;
 	}
 
 	void Update()
 	{
 		if (Input.GetKeyDown (KeyCode.H)) 
 		{
+
 			ChangePropsInLevel ();
+
 		}
+			
 	}
 
 	void GetPropsInLevel()
@@ -28,11 +33,15 @@ public class MapController : MonoBehaviour {
 
 	void ChangePropsInLevel()
 	{
-		Debug.Log (propsInLevel);
-
 		for(int i = 0; i < propsInLevel.Count; i++)
 		{
-			propsInLevel [i].GetComponent<ChangerScript>().ChangeProp();
+			propsInLevel [i].GetComponent<ChangerScript>().ChangeProp(transformed);
 		}
+
+		if (!transformed)
+			transformed = true;
+		else
+			transformed = false;
+			
 	}
 }
